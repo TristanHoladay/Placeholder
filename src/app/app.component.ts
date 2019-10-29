@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { PlaceholderService } from './services/placeholder.service';
 import { HttpClient } from '@angular/common/http';
 import { ITodo } from './interfaces/itodo';
-import { MatTableDataSource, MatTable} from '@angular/material';
+import { MatTableDataSource, MatTable, MatFormField, MatSort } from '@angular/material';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -12,9 +13,9 @@ import { MatTableDataSource, MatTable} from '@angular/material';
 })
 export class AppComponent {
   title = 'PlaceHolder';
-  TODOS: any[];
+  Control = new FormControl;
   displayedColumns: string[] = ['Title', 'Id', 'UserId', 'Completed'];
-  dataSource = new MatTableDataSource(this.TODOS);
+  dataSource: MatTableDataSource<any[]>;
 
   constructor(
     private _service: PlaceholderService
@@ -22,7 +23,7 @@ export class AppComponent {
 
   getTodos() {
     this._service.getTodos().subscribe(data => {
-      this.TODOS = data; 
+      this.dataSource = new MatTableDataSource(data);
     });
   }
 }
