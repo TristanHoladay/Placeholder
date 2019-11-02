@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { PlaceholderService } from './services/placeholder.service';
 import { HttpClient } from '@angular/common/http';
 import { ITodo } from './interfaces/itodo';
@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'PlaceHolder';
   Control = new FormControl;
   displayedColumns: string[] = ['Title', 'Id', 'UserId', 'Completed'];
@@ -25,11 +25,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this._service.getTodos().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-    
+      this.dataSource = new MatTableDataSource<ITodo>(data);
+      
     });
     
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
 
