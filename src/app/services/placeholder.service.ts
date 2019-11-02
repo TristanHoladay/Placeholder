@@ -15,7 +15,7 @@ export class PlaceholderService {
     private http: HttpClient
   ) { }
 
-  getTodos(): Observable<any[]> {
-    return this.http.get<any[]>(this._url);
+  getTodos(): Observable<ITodo[]> {
+    return this.http.get<ITodo[]>(this._url);
   }
 }
