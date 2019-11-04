@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    //test comment for testing pull request
     this.dataSource.sort = this.sort;
   }
 
